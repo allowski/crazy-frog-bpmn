@@ -52,7 +52,7 @@ describe('FlowServiceImpl', () => {
     it('should execute a simple flow', () => {
         const response = service.executeFlow(exports.simpleFlow);
         expect(response).toBeTruthy();
-        expect(response.lastFlow.id).toBe('3');
+        expect(response.lastFlow.flowId).toBe('3');
         expect(response.variables.get('value')).toBe('one');
     });
     it('should call http service', () => {
