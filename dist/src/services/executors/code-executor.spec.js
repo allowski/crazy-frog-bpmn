@@ -1,14 +1,15 @@
-import {codeExecutor} from "./code-executor";
-import {Variables} from "../../interfaces/flow-service";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const code_executor_1 = require("./code-executor");
+const flow_service_1 = require("../../interfaces/flow-service");
 describe('codeExecutor', function () {
     it('should execute some code', () => {
-        const result = codeExecutor({
+        const result = (0, code_executor_1.codeExecutor)({
             type: undefined,
             id: 'testCodeExecution',
             name: 'Test Code Execution',
             flowId: 'sdfg',
-            variables: new Variables({
+            variables: new flow_service_1.Variables({
                 'var01': 'val1'
             }),
             expression: `
@@ -26,14 +27,13 @@ describe('codeExecutor', function () {
         expect(result.previous.variables.get('var01')).toEqual('val02');
         expect(result.previous.variables.get('var02')).toEqual('random-value');
     });
-
     it('should execute some code with structures', () => {
-        const result = codeExecutor({
+        const result = (0, code_executor_1.codeExecutor)({
             type: undefined,
             id: 'testCodeExecution',
             name: 'Test Code Execution',
             flowId: 'sdfg',
-            variables: new Variables({
+            variables: new flow_service_1.Variables({
                 'var01': 'val1'
             }),
             expression: `
@@ -54,3 +54,4 @@ describe('codeExecutor', function () {
         expect(result.previous.variables.get('var02')).toEqual('random-value');
     });
 });
+//# sourceMappingURL=code-executor.spec.js.map

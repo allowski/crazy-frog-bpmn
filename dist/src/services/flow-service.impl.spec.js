@@ -1,11 +1,11 @@
-import {FlowServiceImpl} from "./flow-service.impl";
-import {Flow} from "../interfaces/flow";
-import {Variables} from "../interfaces/flow-service";
-import {HttpServiceImpl} from "./http-service.impl";
-import {StoreServiceImpl} from "./store-service.impl";
-
-
-export const simpleFlow: Flow = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.simpleFlow = void 0;
+const flow_service_impl_1 = require("./flow-service.impl");
+const flow_service_1 = require("../interfaces/flow-service");
+const http_service_impl_1 = require("./http-service.impl");
+const store_service_impl_1 = require("./store-service.impl");
+exports.simpleFlow = {
     flowId: '1',
     name: 'Entrypoint',
     description: 'Test',
@@ -27,10 +27,9 @@ export const simpleFlow: Flow = {
             }
         }
     },
-    variables: new Variables()
-}
-
-const httpFlow: Flow = {
+    variables: new flow_service_1.Variables()
+};
+const httpFlow = {
     flowId: '1',
     type: 'ENTRYPOINT',
     name: 'Http Sample',
@@ -45,22 +44,22 @@ const httpFlow: Flow = {
             headers: 'Authorization: Bearer eyrerefd'
         }
     }
-}
-
+};
 describe('FlowServiceImpl', () => {
-    const httpService = new HttpServiceImpl();
-    const storage = new StoreServiceImpl();
-    const service = new FlowServiceImpl(httpService, storage);
+    const httpService = new http_service_impl_1.HttpServiceImpl();
+    const storage = new store_service_impl_1.StoreServiceImpl();
+    const service = new flow_service_impl_1.FlowServiceImpl(httpService, storage);
     it('should execute a simple flow', () => {
-        const response = service.executeFlow(simpleFlow);
+        const response = service.executeFlow(exports.simpleFlow);
         expect(response).toBeTruthy();
         expect(response.lastFlow.id).toBe('3');
         expect(response.variables.get('value')).toBe('one');
     });
     it('should call http service', () => {
-       jest.spyOn(httpService, 'execute');
-       const response = service.executeFlow(httpFlow);
-       expect(httpService.execute).toBeCalled();
-       expect(response.variables.get('lastResponse')).toBe('{"test": "1"}');
+        jest.spyOn(httpService, 'execute');
+        const response = service.executeFlow(httpFlow);
+        expect(httpService.execute).toBeCalled();
+        expect(response.variables.get('lastResponse')).toBe('{"test": "1"}');
     });
 });
+//# sourceMappingURL=flow-service.impl.spec.js.map

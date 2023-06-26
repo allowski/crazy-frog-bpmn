@@ -1,0 +1,28 @@
+### Send POST request with json body
+POST http://localhost:9922/processes
+Content-Type: application/json
+
+{
+  "flowId": "1",
+  "name": "Entrypoint",
+  "description": "Test",
+  "type": "ENTRYPOINT",
+  "left": {
+    "flowId": "2",
+    "name": "End",
+    "type": "CODE",
+    "expression": "variables.set('value', 'one'); console.log(variables)",
+    "left": {
+      "flowId": "2.1",
+      "name": "Check 1",
+      "type": "CONDITIONAL",
+      "expression": "(variables.get('value') === 'one')",
+      "left": {
+        "flowId": "3",
+        "name": "End",
+        "type": "ENDPOINT"
+      }
+    }
+  },
+  "variables": {}
+}
