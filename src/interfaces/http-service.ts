@@ -1,5 +1,5 @@
 export interface IHttpService {
-    execute(httpParams: HttpParams): HttpResponse;
+    execute(httpParams: HttpParams): Promise<HttpResponse>;
 }
 
 export interface HttpParams{

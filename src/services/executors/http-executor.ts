@@ -1,8 +1,8 @@
 import {HttpServiceImpl} from "../http-service.impl";
 import {Flow} from "../../interfaces/flow";
-import {HttpParams} from "../../interfaces/http-service";
+import {HttpParams, IHttpService} from "../../interfaces/http-service";
 
-export function httpExecutor(httpService: HttpServiceImpl) {
+export function httpExecutor(httpService: IHttpService) {
     return (flow: Flow) => {
         const params: HttpParams = flow.params as HttpParams;
         const fn = new Function('variables', `return ${params.bodyBuilder}`);
