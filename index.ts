@@ -17,13 +17,12 @@ app.get('/processes/:id',
     (req, res) => store.findById(req.params['id'])
 );
 
-app.post('/processes', (req, res) => {
+app.post('/processes', async (req, res) => {
     const flowData = {
         ...req.body,
         variables: new Variables(req.body?.variables)
     };
-    console.log(flowData);
-    return flowService.executeFlow(flowData);
-})
+    res.send(await flowService.executeFlow(flowData));
+});
 
 app.listen(9922);

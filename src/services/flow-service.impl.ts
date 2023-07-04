@@ -22,20 +22,24 @@ export class FlowServiceImpl implements IFlowService {
     }
 
     executeFlow(flow: Flow) {
+        console.log('[StartFlow]')
         const persistedData = this.processData.insert(flow);
         return this.execute(persistedData, []);
     }
 
-    execute(flow: Flow, steps: string[]): Execution {
+    async execute(flow: Flow, steps: string[]) {
+
+        console.log('[RunFlow] ', flow.type)
 
         let nextFlow = null;
 
         if(this.executors.has(flow.type)){
             this.processData.update(flow.id, flow);
-            nextFlow = this.executors.get(flow.type)(flow);
+            nextFlow = await this.executors.get(flow.type)(flow);
         }
 
         if(nextFlow == null) {
+            console.log('[Return ]', flow);
             return {
                 id: flow.id,
                 variables: flow.variables,
@@ -46,7 +50,7 @@ export class FlowServiceImpl implements IFlowService {
             };
         }
 
-        return this.execute({...nextFlow, variables: flow.variables}, [...steps, flow.id]);
+        return await this.execute({...nextFlow, variables: flow.variables}, [...steps, flow.id]);
     }
 
 }

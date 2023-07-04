@@ -1,15 +1,15 @@
 import {Flow} from "./flow";
 
 export interface IFlowService {
-    executeFlow(flow: Flow): Execution;
-    execute(flow: Flow, steps: string[]): Execution;
+    executeFlow(flow: Flow): Promise<Execution>;
+    execute(flow: Flow, steps: string[]): Promise<Execution>;
 }
 
 export interface IFlowService {
-    execute(flow: Flow, steps: string[]): Execution
+    execute(flow: Flow, steps: string[]): Promise<Execution> | Flow
 }
 
-export type IFlowExecutor = (flow: Flow) => Flow;
+export type IFlowExecutor = (flow: Flow) => Promise<Flow> | Flow;
 export type IFlowExecutorFactory = () => IFlowExecutor;
 
 export interface Execution {
