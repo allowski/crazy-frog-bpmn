@@ -1,5 +1,7 @@
+import {Variables} from "./flow-service";
+
 export interface IHttpService {
-    execute(httpParams: HttpParams): Promise<HttpResponse>;
+    execute(httpParams: HttpParams, variables: Variables): Promise<HttpResponse>;
 }
 
 export interface HttpParams{

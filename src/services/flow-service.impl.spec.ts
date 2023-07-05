@@ -51,16 +51,16 @@ describe('FlowServiceImpl', () => {
     const httpService = new HttpServiceImpl();
     const storage = new StoreServiceImpl();
     const service = new FlowServiceImpl(httpService, storage);
-    it('should execute a simple flow', () => {
-        const response = service.executeFlow(simpleFlow);
+    it('should execute a simple flow', async () => {
+        const response = await service.executeFlow(simpleFlow);
         expect(response).toBeTruthy();
         expect(response.lastFlow.flowId).toBe('3');
         expect(response.variables.get('value')).toBe('one');
     });
-    it('should call http service', () => {
+    it('should call http service', async () => {
        jest.spyOn(httpService, 'execute');
-       const response = service.executeFlow(httpFlow);
+       const response = await service.executeFlow(httpFlow);
        expect(httpService.execute).toBeCalled();
-       expect(response.variables.get('lastResponse')).toBe('{"test": "1"}');
+       expect(response.variables.get('lastResponseStatus')).toBe(200);
     });
 });

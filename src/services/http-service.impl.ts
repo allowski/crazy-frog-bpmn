@@ -1,23 +1,22 @@
 import {HttpParams, HttpResponse, IHttpService} from "../interfaces/http-service";
-import axios from "axios";
+import axios, {AxiosRequestConfig, CreateAxiosDefaults} from "axios";
+import {Variables} from "../interfaces/flow-service";
 
 export class HttpServiceImpl implements IHttpService {
-    async execute(httpParams: HttpParams): Promise<HttpResponse> {
+    async execute(httpParams: HttpParams, variables: Variables): Promise<HttpResponse> {
 
         let body = httpParams.body;
 
         if(httpParams.bodyBuilder) {
-            body = new Function('',`return ${httpParams.bodyBuilder}`)();
+            body = new Function('variables',`return ${httpParams.bodyBuilder}`)(variables);
         }
 
-        const client = axios.create({
-            baseURL: httpParams.url,
+        const response = await axios({
+            url: httpParams.url,
             method: httpParams.method,
             headers: httpParams.headers,
             data: body
         });
-
-        const response = await client.post('', body);
 
         return {
             request: httpParams,

@@ -1,4 +1,5 @@
 import {HttpServiceImpl} from "./http-service.impl";
+import {Variables} from "../interfaces/flow-service";
 
 describe('HttpServiceImpl', () => {
     let httpServiceImpl = new HttpServiceImpl();
@@ -12,7 +13,7 @@ describe('HttpServiceImpl', () => {
                 'Authorization': 'Test'
             },
             url: 'https://webhook.site/2364943d-c9aa-418a-b325-c40f04f71682'
-        });
+        }, new Variables());
         expect(result.response.status).toEqual(200)
     });
 });

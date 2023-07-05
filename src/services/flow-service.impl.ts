@@ -21,10 +21,10 @@ export class FlowServiceImpl implements IFlowService {
         this.executors.set('ENTRYPOINT', entrypoint);
     }
 
-    executeFlow(flow: Flow) {
+    async executeFlow(flow: Flow) {
         console.log('[StartFlow]')
         const persistedData = this.processData.insert(flow);
-        return this.execute(persistedData, []);
+        return await this.execute(persistedData, []);
     }
 
     async execute(flow: Flow, steps: string[]) {

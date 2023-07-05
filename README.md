@@ -55,6 +55,7 @@ The idea is to have a BPMN with nice features that will allow to conduct a flow 
 - Distributed computing.
 - Async processing.
 - Immutable database.
+- Terraform.
 
 ### User Key Features
 - Easy-to-use BPMN functions.
